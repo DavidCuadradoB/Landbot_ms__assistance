@@ -1,27 +1,32 @@
+import json
+
 from dependency_injector.wiring import inject, Provide
-from django.http import HttpResponse, JsonResponse, HttpRequest
+from django.http import JsonResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
 
-from assistance.application.EventService import EventService
+from assistance.application.command.RequestAssistanceCommand import RequestAssistanceCommand
+from assistance.application.service.RequestAssistanceUseCase import RequestAssistanceUseCase
 from assistance.infrastructure.containers import Container
 
 
 @inject
 @csrf_exempt
-def index(request: HttpRequest,
-          event_service: EventService = Provide[Container.event_service]
-          ):
-    print(request)
+def assistance(request: HttpRequest,
+               request_assistance_use_case: RequestAssistanceUseCase = Provide[Container.request_assistance_use_case]
+               ):
     if request.method == 'POST':
-        print(request.body)
+        body = json.loads(request.body.decode('utf-8'))
+
+        command = RequestAssistanceCommand(body['topic'], body['description'])
+
+        value = request_assistance_use_case.execute(command)
+
         data = {
-            'name': 'Post',
+            'event': value,
         }
         return JsonResponse(data)
     else:
-        event_service.print_my_name()
         data = {
-            'name': 'David',
-            'location': 'Barna'
+            'error': 'Method Get not supported'
         }
         return JsonResponse(data)

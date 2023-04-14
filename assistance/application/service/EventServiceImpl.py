@@ -1,4 +1,4 @@
-from assistance.application.EventService import EventService
+from assistance.application.service.EventService import EventService
 
 
 class EventServiceImpl(EventService):
