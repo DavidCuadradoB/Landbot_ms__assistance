@@ -18,7 +18,7 @@ class AssistanceViewTest(TestCase):
         a_uuid = uuid.uuid4()
         a_topic = "A topic"
         a_description = "A description"
-        dummy_request_assistance_command = RequestAssistanceCommand("A topic", "A description")
+        dummy_request_assistance_command = RequestAssistanceCommand(a_topic, a_description)
         request_assistance_use_case = mockito.mock(RequestAssistanceUseCase)
         when(request_assistance_use_case).execute(mockito.any()).thenReturn(a_uuid)
         with container.request_assistance_use_case.override(request_assistance_use_case):
