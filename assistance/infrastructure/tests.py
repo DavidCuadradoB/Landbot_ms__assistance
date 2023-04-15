@@ -1,3 +1,4 @@
+import http
 import uuid
 from unittest import mock
 
@@ -13,7 +14,7 @@ from assistance.application.service.RequestAssistanceUseCase import RequestAssis
 
 # Create your tests here.
 class AssistanceViewTest(TestCase):
-    def test_post_should_call_request_assistance_use_case(self):
+    def test_post_given_a_correct_body_should_call_request_assistance_use_case(self):
         a_uuid = uuid.uuid4()
         a_topic = "A topic"
         a_description = "A description"
@@ -31,3 +32,34 @@ class AssistanceViewTest(TestCase):
 
         self.assertContains(response, a_uuid)
 
+    def test_post_given_an_body_without_topic_should_return_400(self):
+        a_uuid = uuid.uuid4()
+        a_topic = "A topic"
+        a_description = "A description"
+        dummy_request_assistance_command = RequestAssistanceCommand("A topic", "A description")
+        request_assistance_use_case = mockito.mock(RequestAssistanceUseCase)
+        when(request_assistance_use_case).execute(mockito.any()).thenReturn(a_uuid)
+        with container.request_assistance_use_case.override(request_assistance_use_case):
+            dummyBody = {
+                "description": a_description
+            }
+            response = self.client.post(reverse("assistance"),
+                                        data=dummyBody,
+                                        content_type='application/json')
+        self.assertEqual(response.status_code, http.HTTPStatus.BAD_REQUEST)
+
+    def test_post_given_an_body_without_description_should_return_400(self):
+        a_uuid = uuid.uuid4()
+        a_topic = "A topic"
+        a_description = "A description"
+        dummy_request_assistance_command = RequestAssistanceCommand("A topic", "A description")
+        request_assistance_use_case = mockito.mock(RequestAssistanceUseCase)
+        when(request_assistance_use_case).execute(mockito.any()).thenReturn(a_uuid)
+        with container.request_assistance_use_case.override(request_assistance_use_case):
+            dummyBody = {
+                "description": a_description
+            }
+            response = self.client.post(reverse("assistance"),
+                                        data=dummyBody,
+                                        content_type='application/json')
+        self.assertEqual(response.status_code, http.HTTPStatus.BAD_REQUEST)
