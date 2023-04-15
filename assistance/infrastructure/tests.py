@@ -33,12 +33,9 @@ class AssistanceViewTest(TestCase):
         self.assertContains(response, a_uuid)
 
     def test_post_given_an_body_without_topic_should_return_400(self):
-        a_uuid = uuid.uuid4()
-        a_topic = "A topic"
         a_description = "A description"
         dummy_request_assistance_command = RequestAssistanceCommand("A topic", "A description")
         request_assistance_use_case = mockito.mock(RequestAssistanceUseCase)
-        when(request_assistance_use_case).execute(mockito.any()).thenReturn(a_uuid)
         with container.request_assistance_use_case.override(request_assistance_use_case):
             dummyBody = {
                 "description": a_description
@@ -49,12 +46,9 @@ class AssistanceViewTest(TestCase):
         self.assertEqual(response.status_code, http.HTTPStatus.BAD_REQUEST)
 
     def test_post_given_an_body_without_description_should_return_400(self):
-        a_uuid = uuid.uuid4()
-        a_topic = "A topic"
         a_description = "A description"
         dummy_request_assistance_command = RequestAssistanceCommand("A topic", "A description")
         request_assistance_use_case = mockito.mock(RequestAssistanceUseCase)
-        when(request_assistance_use_case).execute(mockito.any()).thenReturn(a_uuid)
         with container.request_assistance_use_case.override(request_assistance_use_case):
             dummyBody = {
                 "description": a_description
