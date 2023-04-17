@@ -18,16 +18,6 @@ Run docker-compose with kafka
 
 `docker-compose up`
 
-### Locally
-
-Install the required packages dependencies:
-
-`pip install -r “requirements.txt”`
-
-run the app:
-
-`python manage.py runserver 0.0.0.0:8000`
-
 ## Test it
 
 The endpoint exposed to the bot is: /assistance/ so, once the other services are running and the consumers are listening (see other services)
