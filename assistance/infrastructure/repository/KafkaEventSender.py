@@ -11,7 +11,6 @@ from assistance.application.repository.EventSender import EventSender
 
 class KafkaEventSender(EventSender):
     def send_event(self, assistance_event_dto: AssistanceEventDTO):
-        print('------------kafka 9093----------------')
         producer = KafkaProducer(
             bootstrap_servers=['kafka:29092'],
             value_serializer=lambda x: json.dumps(x).encode('utf-8')
