@@ -54,6 +54,18 @@ The implementation of the Kafka events is done using the kafka-python library. T
 
 ![alt text](https://i.imgur.com/wH4POSw.png)
 
+## TODOS:
+
+There are some things that, given more time, I would like to finish:
+
+* Add more validations. Currently only endpoint arguments are validated. More validations should be added. For example, when an event is sent to a kafka topic that doesn't exist, it should be validated (currently kafka is configured to create a new topic if it doesn't have one).
+
+* More tests: Integration tests are missing, I would like to add at least one test that tests the whole use case. It was a bit difficult to do it with Python and I preferred to spend more time on other issues. Also, the validations mentioned before should have unit tests. Kafka's implementation has no testing, I should think a bit about how to test it.
+
+* Kafka is sending an object created in the class itself, something like data:{}. This could perhaps be an object of its own, the truth is that in java it would be, but with python you can do this, maybe it also makes sense... As before, I was a bit quick and made something that worked, I preferred to have the system running.
+
+As I said, I decided to leave this pending and dedicate myself more to other topics. My goal is to get the queuing system up and running and I had some problems with the communication between dockers. My apologies for not having it 100% finished, time is what it was and I had to prioritise.
+
 ## References:
 
 * https://www.djangoproject.com/
