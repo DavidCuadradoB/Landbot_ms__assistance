@@ -64,6 +64,8 @@ There are some things that, given more time, I would like to finish:
 
 * Kafka is sending an object created in the class itself, something like data:{}. This could perhaps be an object of its own, the truth is that in java it would be, but with python you can do this, maybe it also makes sense... As before, I was a bit quick and made something that worked, I preferred to have the system running.
 
+* Think a little bit more about DDD. It's clear that there are 3 bounded context (each of the 3 microservices). I'm thinking that the event that Landbot_ms__assistance is sending is a Integration Event, so probably this should be in a external library that allow all the bounded context use this event. Something like Landbot_event__library. This event is the way to communicate between bounded context, so should be a "contract" between them. This library could provide this "contract"
+
 As I said, I decided to leave this pending and dedicate myself more to other topics. My goal is to get the queuing system up and running and I had some problems with the communication between dockers. My apologies for not having it 100% finished, time is what it was and I had to prioritise.
 
 ## References:
